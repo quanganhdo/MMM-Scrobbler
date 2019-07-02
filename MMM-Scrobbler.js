@@ -49,6 +49,8 @@ Module.register("MMM-Scrobbler",{
 			}
 			if(this.config.showMetaData){
 				meta_html += "<div class='meta'><table class='small'><tr class='track-name bright'><td>"+this.songData.title+"</td></tr><tr class='artist-name'><td>"+this.songData.artist +"</td></tr><tr class='album-name dimmed'><td>"+this.songData.album+"</td></tr></table></div>";
+			} else {
+			  meta_html += "<div class='dimmed light small'>Listening to "+this.songData.title+" by "+this.songData.artist+" ("+this.songData.album+")</div>"
 			}
 			if(this.config.alignment === 'left' || this.config.alignment === 'top'){
 				html += meta_html;
@@ -59,7 +61,7 @@ Module.register("MMM-Scrobbler",{
 				html += meta_html;		
 			}
 			html += "</div>";
-			wrapper.innerHTML = html;
+			wrapper.innerHTML = meta_html;
 		}
 		else{
 			this.hide(this.config.animationSpeed);
@@ -74,7 +76,7 @@ Module.register("MMM-Scrobbler",{
 		return wrapper;
     },
 	queryLastFm: function(){
-		var url = "https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user="+this.config.username+"&api_key="+this.config.apikey+"&limit=1&format=json";
+		var url = "https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user="+this.config.username+"&sk="+this.config.sk+"&api_key="+this.config.apikey+"&limit=1&format=json";
 		var self = this;		
 		var i = new XMLHttpRequest;
 		i.open("GET",url,true),i.onload=function(){
